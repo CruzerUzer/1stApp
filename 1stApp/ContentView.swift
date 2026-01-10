@@ -8,6 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var selectedTab = 0
+    
+    var body: some View {
+        TabView(selection: $selectedTab) {
+            CounterView()
+                .tabItem {
+                    Label("Counter", systemImage: "number.circle.fill")
+                }
+                .tag(0)
+            
+            LevelBubbleView()
+                .tabItem {
+                    Label("Level", systemImage: "levelbar")
+                }
+                .tag(1)
+        }
+    }
+}
+
+struct CounterView: View {
     @State private var counter = 0
     @State private var showAlert = false
     @State private var name = ""
@@ -152,7 +172,7 @@ struct ContentView: View {
                     Spacer()
                 }
             }
-            .navigationTitle("1stApp")
+            .navigationTitle("Counter")
             .navigationBarTitleDisplayMode(.inline)
             .alert(isPresented: $showAlert) {
                 Alert(
