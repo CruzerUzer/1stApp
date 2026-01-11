@@ -98,12 +98,13 @@ struct CounterView: View {
                                     .foregroundColor(.white)
                                     .padding(.horizontal, 20)
                                     .padding(.vertical, 10)
-                                    .background(Color.white.opacity(0.2))
+                                    .background(.ultraThinMaterial)
                                     .cornerRadius(15)
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 15)
-                                            .stroke(Color.white.opacity(0.5), lineWidth: 2)
+                                            .stroke(Color.white.opacity(0.6), lineWidth: 1.5)
                                     )
+                                    .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
                             }
                             
                             Button(action: {
@@ -118,11 +119,22 @@ struct CounterView: View {
                             }
                         }
                     }
-                    .padding()
+                    .padding(25)
                     .background(
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(Color.white.opacity(0.15))
-                            .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 5)
+                        RoundedRectangle(cornerRadius: 25)
+                            .fill(.ultraThinMaterial)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 25)
+                                    .stroke(
+                                        LinearGradient(
+                                            gradient: Gradient(colors: [Color.white.opacity(0.6), Color.white.opacity(0.2)]),
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        ),
+                                        lineWidth: 1.5
+                                    )
+                            )
+                            .shadow(color: .black.opacity(0.3), radius: 20, x: 0, y: 10)
                     )
                     .padding(.horizontal, 30)
                     
@@ -135,13 +147,21 @@ struct CounterView: View {
                         TextField("Your name", text: $name)
                             .textFieldStyle(.plain)
                             .padding()
-                            .background(Color.white.opacity(0.2))
+                            .background(.ultraThinMaterial)
                             .cornerRadius(15)
                             .foregroundColor(.white)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 15)
-                                    .stroke(Color.white.opacity(0.5), lineWidth: 2)
+                                    .stroke(
+                                        LinearGradient(
+                                            gradient: Gradient(colors: [Color.white.opacity(0.6), Color.white.opacity(0.2)]),
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        ),
+                                        lineWidth: 1.5
+                                    )
                             )
+                            .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 5)
                             .padding(.horizontal, 30)
                     }
                     
@@ -158,14 +178,29 @@ struct CounterView: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(
-                            LinearGradient(
-                                gradient: Gradient(colors: [Color.orange, Color.pink]),
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(.ultraThinMaterial)
+                                LinearGradient(
+                                    gradient: Gradient(colors: [Color.orange.opacity(0.4), Color.pink.opacity(0.4)]),
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            }
                         )
                         .cornerRadius(15)
-                        .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 5)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 15)
+                                .stroke(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [Color.white.opacity(0.5), Color.white.opacity(0.1)]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    ),
+                                    lineWidth: 1.5
+                                )
+                        )
+                        .shadow(color: .black.opacity(0.4), radius: 15, x: 0, y: 8)
                     }
                     .padding(.horizontal, 30)
                     

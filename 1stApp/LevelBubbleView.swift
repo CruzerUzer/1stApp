@@ -167,36 +167,47 @@ struct LevelBubbleView: View {
                 }
                 .padding(.vertical, 40)
                 
-                // Angle display
-                VStack(spacing: 10) {
-                    HStack(spacing: 30) {
-                        VStack {
-                            Text("Pitch")
-                                .font(.caption)
-                                .foregroundColor(.white.opacity(0.9))
-                            Text("\(motionManager.pitch * 180.0 / .pi, specifier: "%.1f")°")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
+                    // Angle display
+                    VStack(spacing: 10) {
+                        HStack(spacing: 30) {
+                            VStack {
+                                Text("Pitch")
+                                    .font(.caption)
+                                    .foregroundColor(.white.opacity(0.9))
+                                Text("\(motionManager.pitch * 180.0 / .pi, specifier: "%.1f")°")
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                            }
+                            
+                            VStack {
+                                Text("Roll")
+                                    .font(.caption)
+                                    .foregroundColor(.white.opacity(0.9))
+                                Text("\(motionManager.roll * 180.0 / .pi, specifier: "%.1f")°")
+                                    .font(.title2)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                            }
                         }
-                        
-                        VStack {
-                            Text("Roll")
-                                .font(.caption)
-                                .foregroundColor(.white.opacity(0.9))
-                            Text("\(motionManager.roll * 180.0 / .pi, specifier: "%.1f")°")
-                                .font(.title2)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                        }
+                        .padding(20)
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(.ultraThinMaterial)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .stroke(
+                                            LinearGradient(
+                                                gradient: Gradient(colors: [Color.white.opacity(0.6), Color.white.opacity(0.2)]),
+                                                startPoint: .topLeading,
+                                                endPoint: .bottomTrailing
+                                            ),
+                                            lineWidth: 1.5
+                                        )
+                                )
+                                .shadow(color: .black.opacity(0.3), radius: 15, x: 0, y: 8)
+                        )
                     }
-                    .padding()
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(Color.white.opacity(0.2))
-                            .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 3)
-                    )
-                }
                 
                 // Level indicator text
                 let isLevel = abs(motionManager.pitch) < 0.05 && abs(motionManager.roll) < 0.05
@@ -207,7 +218,19 @@ struct LevelBubbleView: View {
                         .padding()
                         .background(
                             Capsule()
-                                .fill(Color.white.opacity(0.3))
+                                .fill(.ultraThinMaterial)
+                                .overlay(
+                                    Capsule()
+                                        .stroke(
+                                            LinearGradient(
+                                                gradient: Gradient(colors: [Color.green.opacity(0.6), Color.white.opacity(0.3)]),
+                                                startPoint: .leading,
+                                                endPoint: .trailing
+                                            ),
+                                            lineWidth: 1.5
+                                        )
+                                )
+                                .shadow(color: .black.opacity(0.3), radius: 10, x: 0, y: 5)
                         )
                         .transition(.scale.combined(with: .opacity))
                 }
@@ -227,8 +250,20 @@ struct LevelBubbleView: View {
                         .foregroundColor(.white)
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(Color.white.opacity(0.2))
-                        .cornerRadius(12)
+                        .background(.ultraThinMaterial)
+                        .cornerRadius(15)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 15)
+                                .stroke(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [Color.white.opacity(0.6), Color.white.opacity(0.2)]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    ),
+                                    lineWidth: 1.5
+                                )
+                        )
+                        .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 5)
                     }
                     
                     Button(action: {
@@ -247,14 +282,29 @@ struct LevelBubbleView: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(
-                            LinearGradient(
-                                gradient: Gradient(colors: motionManager.isActive ? [Color.red.opacity(0.8), Color.orange.opacity(0.8)] : [Color.green.opacity(0.8), Color.blue.opacity(0.8)]),
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(.ultraThinMaterial)
+                                LinearGradient(
+                                    gradient: Gradient(colors: motionManager.isActive ? [Color.red.opacity(0.4), Color.orange.opacity(0.4)] : [Color.green.opacity(0.4), Color.blue.opacity(0.4)]),
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            }
                         )
-                        .cornerRadius(12)
-                        .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 3)
+                        .cornerRadius(15)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 15)
+                                .stroke(
+                                    LinearGradient(
+                                        gradient: Gradient(colors: [Color.white.opacity(0.5), Color.white.opacity(0.1)]),
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    ),
+                                    lineWidth: 1.5
+                                )
+                        )
+                        .shadow(color: .black.opacity(0.4), radius: 15, x: 0, y: 8)
                     }
                 }
                 .padding(.horizontal, 30)
@@ -328,6 +378,15 @@ struct InstructionsView: View {
                             .font(.callout)
                             .italic()
                             .foregroundColor(.white.opacity(0.9))
+                            .padding()
+                            .background(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(.ultraThinMaterial)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 15)
+                                            .stroke(Color.white.opacity(0.3), lineWidth: 1)
+                                    )
+                            )
                             .padding(.top, 10)
                     }
                     .padding(30)
@@ -371,8 +430,20 @@ struct InstructionRow: View {
         }
         .padding()
         .background(
-            RoundedRectangle(cornerRadius: 12)
-                .fill(Color.white.opacity(0.2))
+            RoundedRectangle(cornerRadius: 15)
+                .fill(.ultraThinMaterial)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 15)
+                        .stroke(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.white.opacity(0.5), Color.white.opacity(0.2)]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            lineWidth: 1.5
+                        )
+                )
+                .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
         )
     }
 }
